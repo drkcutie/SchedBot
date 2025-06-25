@@ -1,34 +1,28 @@
-'use client'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {SessionProvider} from "next-auth/react";
+import ClientProvider from "@/app/components/providers/ClientProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// Initialize fonts
+const geist = Geist({ subsets: ["latin"] });
+const geistMono = Geist_Mono({ subsets: ["latin"] });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+export const metadata: Metadata = {
+    title: "SchedBot",
+};
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <SessionProvider>
-          {children}
-      </SessionProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en" className={geist.className}>
+        <body>
+        <ClientProvider>
+            {children}
+        </ClientProvider>
+        </body>
+        </html>
+    );
 }
