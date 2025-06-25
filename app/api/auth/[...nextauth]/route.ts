@@ -13,6 +13,10 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_SECRET ?? "", // Added required clientSecret
     })
   ],
+  adapter: SupabaseAdapter({
+    url:process.env.SUPABASE_URL,
+    secret:process.env.SUPABASE_SERVICE_ROLE_KEY,
+  }),
   pages: {
     signIn: "/",
     error: "/", // This will handle the error query parameter
@@ -35,3 +39,7 @@ const handler = NextAuth({
 
 // Proper exports for Next.js App Router
 export { handler as GET, handler as POST };
+
+function SupabaseAdapter(arg0: {}): import("next-auth/adapters").Adapter | undefined {
+    throw new Error("Function not implemented.");
+}
